@@ -1,4 +1,5 @@
 # tictactoe game
+
 import time
 
 import pygame
@@ -79,7 +80,7 @@ class Draw(object):
                 draw.circle(450, 150)
             else:
                 draw.cross(500, 100, 400, 200)
-        #
+#
         if game.box4 != 0:
             if game.box4 == 1:
                 draw.circle(150, 300)
@@ -95,7 +96,7 @@ class Draw(object):
                 draw.circle(450, 300)
             else:
                 draw.cross(500, 250, 400, 350)
-        #
+#
         if game.box7 != 0:
             if game.box7 == 1:
                 draw.circle(150, 450)
@@ -122,6 +123,47 @@ class Computer(object):
     def __init__(self):
         pass
 
+    def loser(self):
+        time.sleep(1)
+        while True:
+            window.fill(c_darkBlue)
+            close_text = font.render("You lose!", True, c_white)
+            window.blit(close_text, (225, 300))
+            notice_text = small_font.render("Click anywhere to go back to title screen", True, c_white)
+            window.blit(notice_text, (170, 350))
+            draw.ttt()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    game.start_game_window()
+
+            pygame.display.update()
+            game.box1, game.box2, game.box3, game.box4, game.box5, game.box6, game.box7, game.box8, game.box9 = \
+                game.status, game.status, game.status, game.status, game.status, game.status, game.status, \
+                game.status, game.status
+
+    def draw(self):
+        while True:
+            window.fill(c_darkBlue)
+            close_text = font.render("It's a draw!", True, c_white)
+            window.blit(close_text, (215, 300))
+            notice_text = small_font.render("Click anywhere to go back to title screen", True, c_white)
+            window.blit(notice_text, (170, 350))
+            draw.ttt()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    game.start_game_window()
+
+            pygame.display.update()
+            game.box1, game.box2, game.box3, game.box4, game.box5, game.box6, game.box7, game.box8, game.box9 = \
+                game.status, game.status, game.status, game.status, game.status, game.status, game.status, \
+                game.status, game.status
+
     def winner(self):
         while True:
             window.fill(c_darkBlue)
@@ -143,133 +185,358 @@ class Computer(object):
                 game.status, game.status
 
     def decision(self):
-        # preventive measures
+        # check if player won
+        if game.box1 == 1 and game.box2 == 1 and game.box3 == 1:
+            return "player wins"
+        if game.box4 == 1 and game.box5 == 1 and game.box6 == 1:
+            return "player wins"
+        if game.box7 == 1 and game.box8 == 1 and game.box9 == 1:
+            return "player wins"
+        if game.box1 == 1 and game.box4 == 1 and game.box7 == 1:
+            return "player wins"
+        if game.box1 == 1 and game.box5 == 1 and game.box9 == 1:
+            return "player wins"
+        if game.box2 == 1 and game.box5 == 1 and game.box8 == 1:
+            return "player wins"
+        if game.box3 == 1 and game.box6 == 1 and game.box9 == 1:
+            return "player wins"
+        if game.box3 == 1 and game.box5 == 1 and game.box7 == 1:
+            return "player wins"
+        # defensive measures
+        print("agg")
+        if game.box1 == 2:
+            print("box1")
+            if game.box2 == 2:
+                if game.box3 == 0:
+                    game.box3 = 2
+                    print("a3")
+                    return "com wins"
+            if game.box3 == 2:
+                if game.box2 == 0:
+                    game.box2 = 2
+                    print("a2")
+                    return "com wins"
+                else:
+                    pass
+            if game.box5 == 2:
+                if game.box9 == 0:
+                    game.box9 = 2
+                    print("a9")
+                    return "com wins"
+            if game.box9 == 2:
+                if game.box5 == 0:
+                    game.box5 = 2
+                    print("a5")
+                    return "com wins"
+            if game.box4 == 2:
+                if game.box7 == 0:
+                    game.box7 = 2
+                    print("a7")
+                    return "com wins"
+            if game.box7 == 2:
+                if game.box4 == 0:
+                    game.box4 = 2
+                    print("a4")
+                    return "com wins"
+#
+        if game.box2 == 2:
+            print("box2")
+            if game.box3 == 2:
+                if game.box1 == 0:
+                    game.box1 = 2
+                    print("a1")
+                    return "com wins"
+            if game.box5 == 2:
+                if game.box8 == 0:
+                    game.box8 = 2
+                    print("a8")
+                    return "com wins"
+            if game.box8 == 2:
+                if game.box5 == 0:
+                    game.box5 = 2
+                    print("a5")
+                    return "com wins"
+#
+        if game.box3 == 2:
+            print("box3")
+            if game.box6 == 2:
+                if game.box9 == 0:
+                    game.box9 = 2
+                    print("a9")
+                    return "com wins"
+            if game.box9 == 2:
+                if game.box6 == 0:
+                    game.box6 = 2
+                    print("a6")
+                    return "com wins"
+            if game.box5 == 2:
+                if game.box7 == 0:
+                    game.box7 = 2
+                    print("a7")
+                    return "com wins"
+            if game.box7 == 2:
+                if game.box5 == 0:
+                    game.box5 = 2
+                    print("a5")
+                    return "com wins"
+#
+        if game.box4 == 2:
+            print("box4")
+            if game.box7 == 2:
+                if game.box1 == 0:
+                    game.box1 = 2
+                    print("a1")
+                    return "com wins"
+            if game.box5 == 2:
+                if game.box6 == 0:
+                    game.box6 = 2
+                    print("a6")
+                    return "com wins"
+            if game.box6 == 2:
+                if game.box5 == 0:
+                    game.box5 = 2
+                    print("a5")
+                    return "com wins"
+#
+        if game.box5 == 2:
+            print("box5")
+            if game.box6 == 2:
+                if game.box4 == 0:
+                    game.box4 = 2
+                    print("a4")
+                    return "com wins"
+            if game.box7 == 2:
+                if game.box3 == 0:
+                    game.box3 = 2
+                    print("a3")
+                    return "com wins"
+            if game.box8 == 2:
+                if game.box2 == 0:
+                    game.box2 = 2
+                    print("a2")
+                    return "com wins"
+                else:
+                    pass
+            if game.box9 == 2:
+                if game.box1 == 0:
+                    game.box1 = 2
+                    print("a1")
+                    return "com wins"
+                elif game.box3 == 0:
+                    game.box3 = 2
+                    print("a3")
+                    return "com wins"
+#
+        if game.box6 == 2:
+            print("box6")
+            if game.box9 == 2:
+                if game.box3 == 0:
+                    game.box3 = 2
+                    print("a3")
+                    return "com wins"
+#
+        if game.box7 == 2:
+            print("box7")
+            if game.box8 == 2:
+                if game.box9 == 0:
+                    game.box9 = 2
+                    print("a9")
+                    return "com wins"
+            if game.box9 == 2:
+                if game.box8 == 0:
+                    game.box8 = 2
+                    print("a9")
+                    return "com wins"
+#
+        if game.box8 == 2:
+            print("box8")
+            if game.box9 == 2:
+                if game.box7 == 0:
+                    game.box7 = 2
+                    print("a7")
+                    return "com wins"
+# defensive
+        print("defensive")
         if game.box1 == 1:
+            print("box1")
             if game.box2 == 1:
                 if game.box3 == 0:
                     game.box3 = 2
+                    print("d3")
                     return
-                elif game.box3 == 1:
-                    return "player wins"
             if game.box3 == 1:
                 if game.box2 == 0:
                     game.box2 = 2
+                    print("d2")
                     return
             if game.box5 == 1:
                 if game.box9 == 0:
                     game.box9 = 2
+                    print("d9")
                     return
-                elif game.box9 == 1:
-                    return "player wins"
             if game.box9 == 1:
                 if game.box5 == 0:
                     game.box5 = 2
+                    print("d5")
                     return
             if game.box4 == 1:
                 if game.box7 == 0:
                     game.box7 = 2
+                    print("d7")
                     return
-                elif game.box7 == 1:
-                    return "player wins"
             if game.box7 == 1:
                 if game.box4 == 0:
                     game.box4 = 2
+                    print("d4")
                     return
 #
         if game.box2 == 1:
+            print("box2")
             if game.box3 == 1:
                 if game.box1 == 0:
                     game.box1 = 2
+                    print("d1")
                     return
             if game.box5 == 1:
                 if game.box8 == 0:
                     game.box8 = 2
+                    print("d8")
                     return
-                elif game.box8 == 1:
-                    return "player wins"
             if game.box8 == 1:
                 if game.box5 == 0:
                     game.box5 = 2
+                    print("d5")
                     return
 #
         if game.box3 == 1:
+            print("box3")
             if game.box6 == 1:
                 if game.box9 == 0:
                     game.box9 = 2
+                    print("d9")
                     return
-                elif game.box9 == 1:
-                    return "player wins"
             if game.box9 == 1:
                 if game.box6 == 0:
                     game.box6 = 2
+                    print("d6")
                     return
             if game.box5 == 1:
                 if game.box7 == 0:
                     game.box7 = 2
+                    print("d7")
                     return
-                elif game.box7 == 1:
-                    return "player wins"
 #
         if game.box4 == 1:
+            print("box4")
             if game.box7 == 1:
                 if game.box1 == 0:
                     game.box1 = 2
+                    print("d1")
                     return
             if game.box5 == 1:
                 if game.box6 == 0:
                     game.box6 = 2
+                    print("d6")
                     return
-                elif game.box6 == 1:
-                    return "player wins"
             if game.box6 == 1:
                 if game.box5 == 0:
                     game.box5 = 2
+                    print("d5")
                     return
-                elif game.box5 == 1:
-                    return "player wins"
 #
         if game.box5 == 1:
+            print("box5")
             if game.box6 == 1:
                 if game.box4 == 0:
                     game.box4 = 2
+                    print("d4")
                     return
             if game.box7 == 1:
                 if game.box3 == 0:
                     game.box3 = 2
+                    print("d3")
                     return
             if game.box8 == 1:
                 if game.box2 == 0:
                     game.box2 = 2
+                    print("d2")
                     return
             if game.box9 == 1:
-                if game.box3 == 0:
-                    game.box3 = 2
+                if game.box1 == 0:
+                    game.box1 = 2
+                    print("d1")
+                    return
+                elif game.box1 == 0:
+                    game.box1 = 2
+                    print("d1")
                     return
 #
         if game.box6 == 1:
+            print("box6")
             if game.box9 == 1:
                 if game.box3 == 0:
                     game.box3 = 2
+                    print("d3")
                     return
 #
         if game.box7 == 1:
+            print("box7")
             if game.box8 == 1:
                 if game.box9 == 0:
                     game.box9 = 2
+                    print("d2")
                     return
-                elif game.box9 == 1:
-                    return "player wins"
             if game.box9 == 1:
                 if game.box8 == 0:
                     game.box8 = 2
+                    print("d8")
                     return
 #
         if game.box8 == 1:
+            print("box8")
             if game.box9 == 1:
+                print("box8+")
                 if game.box7 == 0:
                     game.box7 = 2
+                    print("d7")
                     return
 
+        # first and no clue moves
+        box = random.randint(1, 9)
+        print(f"random number: {box}")
+        if box == 1 and game.box1 == 0:
+            game.box1 = 2
+            print("r1")
+        elif box == 2 and game.box2 == 0:
+            game.box2 = 2
+            print("r2")
+        elif box == 3 and game.box3 == 0:
+            game.box3 = 2
+            print("r3")
+        elif box == 4 and game.box4 == 0:
+            game.box4 = 2
+            print("r4")
+        elif box == 5 and game.box5 == 0:
+            game.box5 = 2
+            print("r5")
+        elif box == 6 and game.box6 == 0:
+            game.box6 = 2
+            print("r6")
+        elif box == 7 and game.box7 == 0:
+            game.box7 = 2
+            print("r7")
+        elif box == 8 and game.box8 == 0:
+            game.box8 = 2
+            print("r8")
+        elif box == 9 and game.box9 == 0:
+            game.box9 = 2
+            print("r9")
+        elif game.box1 != 0 and game.box2 != 0 and game.box3 != 0 and game.box4 != 0 and game.box5 != 0 and \
+                game.box6 != 0 and game.box7 != 0 and game.box8 != 0 and game.box9 != 0:
+            return "draw"
+        else:
+            print("re-rolling")
+            com.decision()
 
 
 com = Computer()
@@ -280,9 +547,10 @@ class Game(object):
         self.status = 0
         self.running = True
         self.mouseX, self.mouseY = 0, 0
-        # 0 = none, 1 = player, 2 = computer
+# 0 = none, 1 = player, 2 = computer
         self.box1, self.box2, self.box3, self.box4, self.box5, self.box6, self.box7, self.box8, self.box9 = \
-            self.status,self.status,self.status,self.status,self.status,self.status,self.status,self.status,self.status
+            self.status, self.status, self.status, self.status, self.status, self.status, self.status, self.status, \
+            self.status
 
     def start_game_window(self):
         while self.running:
@@ -375,8 +643,17 @@ class Game(object):
             pygame.display.update()
 
             if win == "player wins":
+                print(win)
                 com.winner()
-
+            elif win == "com wins":
+                print(win)
+                com.loser()
+            elif self.box1 != 0 and self.box2 != 0 and self.box3 != 0 and self.box4 != 0 and self.box5 != 0 and \
+                    self.box6 != 0 and self.box7 != 0 and self.box8 != 0 and self.box9 != 0:
+                print("draw")
+                com.draw()
+            elif win == "draw":
+                com.draw()
 
     def close_game(self):
         window.fill(c_darkBlue)
