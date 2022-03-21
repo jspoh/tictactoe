@@ -1,7 +1,6 @@
 # tictactoe game
 
 import time
-
 import pygame
 import sys
 import random
@@ -18,7 +17,8 @@ font = pygame.font.Font("freesansbold.ttf", 30)
 small_font = pygame.font.Font("freesansbold.ttf", 12)
 
 c_darkBlue = (0, 30, 50)
-c_darkGreen = (0, 50, 30)
+c_lightBlue = (0, 30, 30)
+c_lightGreen = (0, 50, 30)
 c_white = (255, 255, 255)
 
 
@@ -34,13 +34,13 @@ class Draw(object):
         self.v_line_width = 5
         self.v_line_height = 450
 
-    def start_button(self):
-        pygame.draw.rect(window, c_darkGreen, (self.startX, self.startY, self.startWidth, self.startHeight))
+    def start_button(self, colour):
+        pygame.draw.rect(window, colour, (self.startX, self.startY, self.startWidth, self.startHeight))
         start_text = font.render("START GAME", True, c_white)
         window.blit(start_text, (self.startX + 28, self.startY + 12))
 
-    def quit_button(self):
-        pygame.draw.rect(window, c_darkGreen, (self.startX + 65, self.startY + self.startHeight + 10,
+    def quit_button(self, colour):
+        pygame.draw.rect(window, colour, (self.startX + 65, self.startY + self.startHeight + 10,
                                                self.startWidth - 130, self.startHeight))
         quit_text = font.render("QUIT", True, c_white)
         window.blit(quit_text, (self.startX + 85, self.startY + 72))
@@ -51,10 +51,10 @@ class Draw(object):
 
     def lines(self):
         # boxes are 150px wide
-        pygame.draw.rect(window, c_darkGreen, (225, 75, self.v_line_width, self.v_line_height))
-        pygame.draw.rect(window, c_darkGreen, (375, 75, self.v_line_width, self.v_line_height))
-        pygame.draw.rect(window, c_darkGreen, (75, 225, self.v_line_height, self.v_line_width))
-        pygame.draw.rect(window, c_darkGreen, (75, 375, self.v_line_height, self.v_line_width))
+        pygame.draw.rect(window, c_lightGreen, (225, 75, self.v_line_width, self.v_line_height))
+        pygame.draw.rect(window, c_lightGreen, (375, 75, self.v_line_width, self.v_line_height))
+        pygame.draw.rect(window, c_lightGreen, (75, 225, self.v_line_height, self.v_line_width))
+        pygame.draw.rect(window, c_lightGreen, (75, 375, self.v_line_height, self.v_line_width))
 
     def circle(self, x, y):
         pygame.draw.circle(window, c_white, (x, y), self.radius)
@@ -560,14 +560,23 @@ class Game(object):
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    print(self.mouseX, self.mouseY)
                     if self.mouseX in range(175, 426) and self.mouseY in range(300, 351):
                         self.game_window()
                     elif self.mouseX in range(240, 361) and self.mouseY in range(360, 411):
                         self.close_game()
 
             draw.ttt()
-            draw.start_button()
-            draw.quit_button()
+
+            if self.mouseX in range(175, 425) and self.mouseY in range(300, 351):
+                draw.start_button(c_lightBlue)
+            else:
+                draw.start_button(c_lightGreen)
+
+            if self.mouseX in range(237, 361) and self.mouseY in range(360, 411):
+                draw.quit_button(c_lightBlue)
+            else:
+                draw.quit_button(c_lightGreen)
             pygame.display.update()
 
     def game_window(self):
