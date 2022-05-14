@@ -13,4 +13,6 @@ Have fun!
 
 Created a HTML CSS JS version to learn the minimax algorithm. Although I did manage to write it, something about it feels off but I can't exactly pinpoint it yet. Might update it again if I see something wrong.
 
+I did not really style the javascript version since I made it mainly for my own learning and practice.
+
 I'm not providing a live weblink for the HTML CSS JS version as there is no point playing since its impossible to win anyways. 
