@@ -9,6 +9,8 @@ Have fun!
 
 <hr>
 
-140522 update, uploaded tictactoe in html css js as backup. trying to learn minimax algorithms for future projects instead of having to hardcode all reactions.
+150522 update.
 
-HTML CSS JS version is <b>NOT READY</b>
+Created a HTML CSS JS version to learn the minimax algorithm. Although I did manage to write it, something about it feels off but I can't exactly pinpoint it yet. Might update it again if I see something wrong.
+
+I'm not providing a live weblink for the HTML CSS JS version as there is no point playing since its impossible to win anyways. 
