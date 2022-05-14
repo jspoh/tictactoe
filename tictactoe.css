@@ -48,7 +48,7 @@ html {
     box-sizing: border-box;
 }
 body {
-    background-color: rgb(148, 64, 64);
+    background-color: black;
 }
 .box {
     box-sizing: border-box;
@@ -64,13 +64,14 @@ body {
 .container {
     position: relative;
     border: 1px solid black;
+    background-color: cadetblue;
     width: 60%;
     height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
-    margin-top: 20vh;
+    margin-top: 8vh;
 }
 .btnRow1, .btnRow2 {
     margin-bottom: 2px;
@@ -78,3 +79,25 @@ body {
 #b1, #b2, #b3, #b4, #b5, #b6, #b7, #b8, #b9 {
     
 }
+h1 {
+    font-size: 3em;
+    width: max-content;
+    margin: auto;
+    margin-top: 10vh;
+    background-color: rgb(182, 221, 255);
+    border-radius: 20px;
+    padding: 5px;
+}
+/*
+.bg {
+    background-color: black;
+}
+.coverup {
+    width: 330px;
+    height: 10px;
+    background-color: cadetblue;
+    position: absolute;
+    left: 39vw;
+    bottom: 21.2vh;
+}
+*/

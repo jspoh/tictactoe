@@ -1,40 +1,42 @@
-//140522 made this to learn minimax algorithms
+//140522 started making this to learn minimax algorithms
+//150522 done, although AI seems to put a higher emphasis on not losing instead of winning
+
 const playerIconCode = '&#9675;';
-let playerIcon = '○';
+const playerIcon = '○';
 const aiIconCode =  '&#9587;';
 const aiIcon = '╳';
-let board = [];
-let availablePositions = [];
+let board = []; for (let i=0; i<9; i++) {board.push('');}
+let winner;
 const AllBtns = document.querySelectorAll('.box');
 const body = document.querySelector('body');
 
 setInterval(()=>{ //game loop?
-    boardRefresh();
+    updateUiFromBoard(); //update visuals
 
-    if (CheckIfPlayerWon()) {body.style.backgroundColor = 'green';}
-    if (CheckIfPlayerLost()) {body.style.backgroundColor = 'red';}
+    winner = gameWinner(); //check if anyone has won/lost/draw
+    if (winner === 'player') {body.style.backgroundColor = 'green';} 
+    else if (winner === 'ai') {body.style.backgroundColor = 'red';} 
+    else if (winner === 'draw') {body.style.backgroundColor = 'blue';} 
 
     //good stuff
-    findAvailablePositions(board);
 }, 10)
-
-const boardRefresh = ()=>{
-    board = [];
-    for (let i of document.querySelectorAll('.box')){board.push(i.innerText);}
-}
 
 for (let btn of AllBtns) {
     btn.addEventListener('click', (e)=>{
         if (e.srcElement.innerText === '') {
-            addPlayerIcon(e.target.id);
+            board[parseInt(e.target.id[1])] = playerIcon;
+            
+            //minimax stuff
+            bestMove(board);
         }
         //console.log(e.srcElement.innerText)
     })
 }
 
-const addPlayerIcon = (id)=>{
-    const playerSelection = document.querySelector(`#${id}`);
-    playerSelection.innerHTML = playerIconCode;
+const updateUiFromBoard = ()=>{
+    for (let i=0; i<9; i++) {
+        document.querySelector(`#b${i}`).innerText = board[i];
+    }
 }
 
 const CheckIfPlayerWon = ()=>{
@@ -91,93 +93,71 @@ const CheckIfPlayerLost = ()=>{
     return false;
 }
 
-//stuff for minimax algorithm
-
-function findAvailablePositions(currentBoard){
-    availablePositions = [];
-    for (let i=0; i<currentBoard.length; i++){
-        if (currentBoard[i] === '') {availablePositions.push(i)}
+const gameWinner = ()=>{
+    if (CheckIfPlayerWon()) {return 'player';}
+    else if (CheckIfPlayerLost()) {return 'ai';}
+    else {
+        for (let i of board) {
+            if (i === '') {return null;} //there are still unselected cells remaining
+        }
+        return 'draw';
     }
 }
 
-/*
-function minimax(position, depth, isMaximizingPlayerTurn) { //depth is how far down the tree we want to search
-    //if depth is 0 or gameover {return static eval of pos}
+//minimax
 
-    if (isMaximizingPlayerTurn) {
-        let maxEval = -Infinity;
-        for (let i of position) {
-            let evalA = minimax(i, depth-1, false); //recursion to check each pos
-            maxEval = max(maxEval, evalA); //basically if eval>maxEval, maxEval = eval
+let moveIndex;
+const minimaxScores = { //to set a score for each outcome. keys are the return values of gameWinner()
+    'player': -1,
+    'ai': 1,
+    'draw': 0
+};
+
+function bestMove(tempBoard){
+    let bestScore = -Infinity;
+    for (let i=0; i<tempBoard.length; i++) {
+        if (tempBoard[i] === '') { //if this spot is free
+            tempBoard[i] = aiIcon; //check what will happen if AI selects this
+            let score = minimax(tempBoard, 0, false); //run the minimax algorithm as player
+            tempBoard[i] = ''; //reset the spot value
+            if (score > bestScore) {
+                bestScore = score;
+                moveIndex = i;
+            }
         }
-        return maxEval;
     }
-    else if (!isMaximizingPlayerTurn) {
-        let minEval = +Infinity;
-        for (let i of position) {
-            let evalI = minimax(i, depth-1, true);
-            minEval = min(minEval, evalI);
+    board[moveIndex] = aiIcon;
+}
+
+function minimax(tempBoard, depth, isMaximizing) {
+    winner = gameWinner();
+    if (winner !== null) { //if game has ended
+        return minimaxScores[winner];
+    }
+    else {
+        if (isMaximizing) { //if it is the AI's turn
+            let maxScore = -Infinity;
+            for (let i=0; i<tempBoard.length; i++) {
+                if (tempBoard[i] === '') {
+                    tempBoard[i] = aiIcon; 
+                    let score1 = minimax(tempBoard, depth+1, false); //minimizing player's turn
+                    tempBoard[i] = '';
+                    maxScore = Math.max(maxScore, score1);
+                }
+            }
+            return maxScore;
         }
-        return minEval;
-    }
-}*/
-//minimax(currentPosition, 3, true);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let maxEval = -Infinity;
-let bestMove;
-
-function minimax(newBoard, isMaximizingPlayerTurn) {
-    if (isMaximizingPlayerTurn) {
-        for (let posIndex of availablePositions) {
-            newBoard[posIndex] = aiIcon; //if AI selects this
-            if (CheckIfPlayerLost()) { //check if AI will win
-                bestMove = posIndex;
-                return 1;
-            } 
-            else if (CheckIfPlayerWon()) { //if not, check if AI will lose
-                return -1;
-            } 
-            newBoard[posIndex] = '';
-            minimax(newBoard, isMaximizingPlayerTurn);
+        else if (!isMaximizing) { //if it is the player's turn
+            let minScore = Infinity;
+            for (let i=0; i<tempBoard.length; i++) {
+                if (tempBoard[i] === '') {
+                    tempBoard[i] = playerIcon; 
+                    let score2 = minimax(tempBoard, depth+1, true); //maximizing player's turn
+                    tempBoard[i] = '';
+                    minScore = Math.min(minScore, score2);
+                }
+            }
+            return minScore;
         }
     }
 }
-
-
-
-
-
-
