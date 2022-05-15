@@ -11,8 +11,8 @@ Have fun!
 
 150522 update.
 
-Created a HTML CSS JS version to learn the minimax algorithm. Although I did manage to write it, something about it feels off but I can't exactly pinpoint it yet. Might update it again if I see something wrong.
+Created a HTML CSS JS version to learn the minimax algorithm. 
 
-I did not really style the javascript version since I made it mainly for my own learning and practice.
+Created a feature that allows the user to choose if he wants to go first, allow the AI to go first, or PVP with a friend.
 
-I'm not providing a live weblink for the HTML CSS JS version as there is no point playing since its impossible to win anyways. Hoever, if you'd really want to try it, you may download the .html, .css, and .js files and run the .html file in your web browser.
+HTML CSS JS version is available <a href='https://jspoh.github.io/projects/games/tictactoe/tictactoe.html'>here</a>
