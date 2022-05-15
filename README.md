@@ -16,11 +16,11 @@ Classic Tic-Tac-Toe game
                 the player did not select it.
                 <br>
                 <br>
-                <img src="../projects/games/tictactoe/lib/main.PNG" alt="Game screen on launch" class="curve"> <br> <br>
+                <img src="lib/main.PNG" alt="Game screen on launch" class="curve"> <br> <br>
                 Game screen on launch <br> <br>
-                <img src="../projects//games/tictactoe/lib/gameplay.PNG" alt="gameplay" class="curve"> <br> <br>
+                <img src="lib/gameplay.PNG" alt="gameplay" class="curve"> <br> <br>
                 This is what gameplay looks like <br><br>
-                <img src="../projects/games/tictactoe/lib/draw.PNG" alt="end game screen" class="curve"> <br><br>
+                <img src="lib/draw.PNG" alt="end game screen" class="curve"> <br><br>
                 End game screen. It can either be win, lose, or draw. The draw result screen is shown in this case.
                 <br> <br> <br>
 
@@ -54,18 +54,18 @@ Classic Tic-Tac-Toe game
                 If the player chooses to go first, the game will always result in a loss/draw but if the AI goes first
                 and the player does not select the center box in his/her first turn, the AI will always win.
                 <br> <br>
-                <img src="../projects/games/tictactoe/lib/gameplayjs.PNG"
+                <img src="lib/gameplayjs.PNG"
                     alt="This is a player losing to the AI in the gamemode which the AI is allowed to go first."
                     class="curve">
                 <br> <br>
                 This is a player losing to the AI in the gamemode which the AI is allowed to go first.
                 <br><br>
-                <img src="../projects/games/tictactoe/lib/gameplayjs1.PNG"
+                <img src="lib/gameplayjs1.PNG"
                     alt="This is a player drawing a game with the AI after going first." class="curve">
                 <br><br>
                 This is a player drawing a game with the AI after going first.
                 <br><br>
-                <img src="../projects/games/tictactoe/lib/mobilejs.PNG"
+                <img src="lib/mobilejs.PNG"
                     alt="This is a player winning against his friend in PvP mode on mobile." class="curve">
                 <br><br>
                 This is a player winning against his friend in PvP mode on mobile.
